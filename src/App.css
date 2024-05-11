@@ -1,0 +1,180 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+table {
+  margin: auto;
+  width: 100%; 
+  max-width: 30vw; 
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px; 
+}
+
+table, th, td {
+  border: 1px solid black; 
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff; 
+  text-decoration: none; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; 
+  transition: background-color 0.3s ease; 
+}
+
+.secret-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fffdfd;
+  color: #fff; 
+  text-decoration: none; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 5px; 
+  transition: background-color 0.3s ease; 
+}
+
+.button-link:hover {
+  background-color: #0056b3;
+}
+
+
+@media only screen and (max-width: 600px) {
+  table {
+    max-width: 100%; 
+  }
+}
+
+.answer {
+  color:greenyellow;
+}
+
+.wrongAnswer {
+  color: red;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.table-container-practise {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.table-div {
+  display: flex; 
+}
+
+
+
+.row {
+  display: flex;
+}
+
+.cell {
+  padding: 8px;
+  border: 1px solid #ccc;
+  width: 90px;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1000; 
+  border-bottom: 1px solid #ccc; 
+}
+
+.grey {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #a2b2c3;
+  color: #fff; 
+  text-decoration: none; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; 
+  transition: background-color 0.3s ease; 
+}
+
+.img-input-div {
+  display: flex;
+}
+
+.img-div{
+  max-width: 100%;
+  overflow: scroll;
+  width: 30vw;
+  height: 18vh;
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.num-input {
+  width: 100px;
+  height: 30px;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.timer{
+  width: 100px;
+  border: solid;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  align-items: center;
+  background-color: cadetblue;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: #f0f0f0;
+}
+
+.progress-bar {
+  height: 30px;
+  background-color: #4caf50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  transition: width 0.3s ease; /* Adding transition for smooth animation */
+}
+
+@media (max-width: 425px) {
+  .table-container-practise {
+    flex-direction: column;
+  }
+  .table-div{
+    flex-direction: column;
+  }
+  .img-div{
+    height: 60vh;
+  }
+}
