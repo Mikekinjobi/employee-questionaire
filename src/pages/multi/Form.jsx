@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import {useMutation} from "@tanstack/react-query"
 import managers from "../../data/managers.json";
 import questionsData from "../../data/questions.json";
+import axios from 'axios'
 import { v4 as uuidv4 } from "uuid";
 import Page1 from './Page1';
 import Page6 from '../Page6';
@@ -28,6 +30,8 @@ const MultipageComponent = () => {
   const [totalPossibleEvalue, setTotalPossibleEvalue] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [result, setResult] = useState(0);
+  let [percentageSkippedQuestions, setPercentageSkippedQuestions] = useState(0);
+  let [percentageCorrectAnswers, setPercentageCorrectAnswers] = useState(0);
   const [managerIndex] = useState(Math.floor(Math.random() * managers.allData.length));
   let [progressBar, setProgressBar] = useState(0)
   let [showProgress, setShowProgress] = useState(true)
@@ -38,6 +42,35 @@ const MultipageComponent = () => {
     () => (tableUsed === 0 ? manager.table1Choices : manager.table2Choices),
     [tableUsed, manager]
   );
+
+  
+  const newPostMutation = useMutation({
+    mutationFn: () => {
+      
+      if (currentPage == 0) {
+        axios.post(
+          "https://questionaire-backend-01x0.onrender.com/employees/addData",
+          data
+        );
+      } else {
+        axios.patch(
+          `https://questionaire-backend-01x0.onrender.com/employees/update/${data.answerId}`,
+          data
+        );
+      }
+    },
+    onSuccess: () => {
+      goToNextPage()
+    },
+    onError: () => {
+      
+    },
+  });
+
+  const handleTimeout = useCallback(() => {
+    newPostMutation.mutate(data);
+    
+  }, [updateFields]);
 
   const handleDataFromPage1 = (newData) => {
     setDataFromPage1(prevData => [...prevData, newData]);
@@ -50,9 +83,23 @@ console.log(data)
     });
   }
 
+  const sendDataToChild = ()=>{
+    return data;
+  }
+
+  const goToNextPage = () => {
+    console.log("Updating page ....")
+    setCurrentPage(prev => prev + 1);
+    console.log("after update>>.>>>")
+  };
+
   useEffect(()=>{
     updateFields({dataFromPage1})
   }, [dataFromPage1])
+
+  useEffect(()=>{
+    setSkippedQuestions(data.answers.filter(answer=> answer.split(' ')[1] == 0))
+  },[numberOfSkippedQuestions])
 
   useEffect(()=> {
     updateFields({totalPossibleEvalue, totalQuestions})
@@ -63,34 +110,43 @@ console.log(data)
     let correctAnswers = 0;
     let eValue = 0;
     let numberOfAnsweredQuestions = 0;
-    let numberOfSkippedQuestions = 0;
-    let skippedQuestions;
+    // let numberOfSkippedQuestions = 0;
+    let percentageSkippedQuestions;
+    let percentageCorrectAnswers;
     let result = 0;
     data.dataFromPage1.forEach(page=>{
       correctAnswers += page.correctAnswers;
       eValue +=page.eValue;
-      numberOfAnsweredQuestions += page.numberOfAnsweredQuestions;
-      numberOfSkippedQuestions += page.numberOfSkippedQuestions;
-      skippedQuestions = [...page.skippedQuestions]
+      numberOfAnsweredQuestions = page.numberOfAnsweredQuestions;
+      // numberOfSkippedQuestions += page.numberOfSkippedQuestions;
       result += page.result;
     })
 
     setCorrectAnswers(correctAnswers);
     setEvalue(eValue);
     setNumberOfAnsweredQuestions(numberOfAnsweredQuestions);
-    setNumberOfSkippedQuestions(numberOfSkippedQuestions);
-    setSkippedQuestions(skippedQuestions);
+    // setNumberOfSkippedQuestions(numberOfSkippedQuestions);
+    // setSkippedQuestions(skippedQuestions);
     setResult(((eValue/data.totalPossibleEvalue)*100).toFixed(1) + "%")
+  
 
   }, [currentPage, correctAnswers, eValue])
+
+  useEffect(()=>{
+    setPercentageCorrectAnswers(((correctAnswers/data.totalQuestions) * 100).toFixed(1) + "%")
+    setPercentageSkippedQuestions(((data.numberOfSkippedQuestions/data.totalQuestions) * 100).toFixed(1) + "%")
+  }, [skippedQuestions])
 
 
   useEffect(()=>{
 
-    updateFields({managerId, correctAnswers, eValue, numberOfAnsweredQuestions, numberOfSkippedQuestions, skippedQuestions, result,})
+    updateFields({managerId, correctAnswers, eValue, numberOfAnsweredQuestions, numberOfSkippedQuestions, skippedQuestions, result, percentageCorrectAnswers, percentageSkippedQuestions})
 
-  },[correctAnswers, eValue, numberOfAnsweredQuestions, numberOfSkippedQuestions, skippedQuestions, result, currentPage, managerId])
+  },[correctAnswers, eValue, numberOfAnsweredQuestions, numberOfSkippedQuestions, skippedQuestions, result, currentPage, managerId, percentageCorrectAnswers, percentageSkippedQuestions])
 
+  useEffect(()=>{
+    setNumberOfSkippedQuestions(data.answers.filter(answer=> answer.split(' ')[1] == 0).length)
+  }, [eValue, result])
   useEffect(() => {
     const qData = questions.map(question => {
       if (question.split('')[0] === 'A') {
@@ -110,17 +166,26 @@ console.log(data)
 
 
   useEffect(() => {
-    if(currentPage == questionPages.length-1){
+    
+    if(currentPage >= questionPages.length){
       setShowProgress(false)
+    }else{
+      setShowProgress(true)
     }
-     
-    setProgressBar(((currentPage/(questionPages.length-2)) * 100).toFixed(0))
+    console.log("Page: ", currentPage)
+    console.log("question length", questionPages.length)
+    setProgressBar(((currentPage/(questionPages.length - 1)) * 100).toFixed(0))
+
   }, [questionPages, currentPage]);
 
+  useEffect(()=>{
+    console.log("Show Progress",showProgress)
+
+  }, [showProgress])
+
   useEffect(() => {
-  
     const pages = [];
-    const seconds = 6000;
+    const seconds = 180;
     const fullSubArraysCount = Math.floor(questions.length / 3);
 
     for (let i = 0; i < fullSubArraysCount; i++) {
@@ -133,6 +198,8 @@ console.log(data)
           sendDataToParent={handleDataFromPage1}
           goToNextPage={ goToNextPage} 
           data={data}
+          newPostMutation={newPostMutation}
+          handleTimeout={handleTimeout}
         />
       );
     }
@@ -148,20 +215,18 @@ console.log(data)
           sendDataToParent={handleDataFromPage1}
           goToNextPage={goToNextPage} 
           data={data}
+          currentPage={currentPage}
+          newPostMutation={newPostMutation}
+          handleTimeout={handleTimeout}
         />
       );
     }
 
-    pages.push(<Page6 key={uuidv4()} formData={data} updateFields={updateFields} goToNextPage={goToNextPage}/>);
-    pages.push(<Page7 key={uuidv4()}  formData={data} currentPage={currentPage}/>);
+    pages.push(<Page6 key={uuidv4()} formData={data} updateFields={updateFields} goToNextPage={goToNextPage} newPostMutation={newPostMutation}/>);
     setQuestionPages(pages);
   }, [questions]);
 
-  const goToNextPage = () => {
-    console.log("Updating page ....")
-    setCurrentPage(prev => prev + 1);
-    console.log("after update>>.>>>")
-  };
+
 
   useEffect(() => {
     console.log('Current Page:', currentPage);
@@ -175,17 +240,26 @@ console.log(data)
   return (
     <div>
       <div>
+        {currentPage < questionPages.length-1 && <h4>Round <span>{currentPage + 1}/{questionPages.length-1}</span></h4>}
+      </div>
+      <div>
       { showProgress && <div className="progress-container">
       <div className="progress-bar" style={{ width: `${progressBar}%` }}>
         {`${progressBar}%`}
       </div>
       </div>
-} </div>
+     
+} 
+  <br />
+  </div>
+  <div>
       {questionPages.map((page, index) => 
         index === currentPage && page
       )}
+      {currentPage == questionPages.length && <Page7 key={uuidv4()}  formData={data} currentPage={currentPage} getDataFromParent={sendDataToChild}/>}
 
-      <div>
+      
+        {/* <button onClick={newPostMutation.mutate(data)}>Submit</button> */}
         {/* <h3>Data received from Page: {dataFromPage1}</h3> */}
       </div>
     </div>

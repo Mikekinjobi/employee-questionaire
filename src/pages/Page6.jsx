@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from "react-router-dom"
 
-export default function Page6({formData, updateFields, goToNextPage}) {
+export default function Page6({formData, updateFields, goToNextPage, newPostMutation}) {
     let [submitted, setSubmitted] = useState(false);
     const [gender, setGender] = useState('male');
     const [age, setAge] = useState('under 18');
@@ -40,9 +40,12 @@ export default function Page6({formData, updateFields, goToNextPage}) {
       setEmployment(e.target.value);
     };
     const handleSubmit = ()=>{
-        goToNextPage();
+      newPostMutation.mutate();
+        // goToNextPage();
         setSubmitted(true);
       }
+
+      const condition = (formData.hasOwnProperty('location') || !formData.hasOwnProperty('education') || !formData.hasOwnProperty('employment') )
     return (
       <div>
         <h1>Demographic Questions</h1>
