@@ -261,7 +261,7 @@ useEffect(() => {
           </div>
         ))}
         <br />
-        <button className={"button-link"} onClick={handleSubmit} disabled={disableButton}>Submit</button>
+        <button className={disableButton ? "grey": "button-link"} onClick={handleSubmit} disabled={disableButton}>Submit</button>
       </div>
       </div>
     </div>

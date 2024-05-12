@@ -129,7 +129,7 @@ export default function Page3() {
           </fieldset>
         </form>
         {!submitted && <button onClick={handleSubmit} className='button-link'>Submit</button>}
-        {submitted && <Link to={'/questions'} className='button-link'>Next</Link>}
+        {submitted && <Link to={'/test'} className='button-link'>Next</Link>}
         <p style={{color: "blue"}}>[Participants must correctly answer the items to proceed on the first instance. If they get it wrong once, the answer is revealed to them. Then they reselect the correct answer to be able to advance]</p>
       </div>
     );
