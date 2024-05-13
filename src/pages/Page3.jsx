@@ -69,7 +69,7 @@ export default function Page3() {
           </fieldset>
   
           <fieldset>
-            <legend>You can input my responses in words.</legend>
+            <legend>You can input responses in words.</legend>
             <input
               type="radio"
               name="portfolioCapacity"

@@ -82,9 +82,23 @@ export default function TestPage() {
   let [numberOfSkippedQuestions, setNumberOfSkippedQuestions] = useState(0);
   let [skippedQuestions, setSkippedQuestions] = useState([]);
   let [numberOfAnsweredQuestions, setNumberOfAnsweredQuestions] = useState(0);
-  let [disableButton, setDisableButton] = useState(true)
+  let [disableButton, setDisableButton] = useState(false)
   const [inputFieldsFilled, setInputFieldsFilled] = useState([]);
 
+  useEffect(() => {
+    setInputFieldsFilled(Array.from({ length: questionsInfo.length }, () => false));
+  }, [questionsInfo]);
+  
+  const handleInputChange = (index, value) => {
+    const updatedFilledStatus = [...inputFieldsFilled];
+    updatedFilledStatus[index] = value !== "";
+    setInputFieldsFilled(updatedFilledStatus);
+  };
+  
+  useEffect(() => {
+    const allFieldsFilled = inputFieldsFilled.every(field => field);
+    setDisableButton(!allFieldsFilled);
+  }, [inputFieldsFilled]);
 
   const handleSubmit = ()=> {
         setSubmitted(true);
@@ -118,6 +132,11 @@ useEffect(()=>{
     <>
     <h1>Practice Round</h1>
 
+    <div style={{width:"100%"}}className={"timer-instructions-div"}>
+        <p style={{width: "100%"}} className="timer-instructions">The tasks you see are assigned to you by your manager. You can choose to do the task or skip by putting ‘0’ There is no value gained for skipped or wrong answers.</p>
+        
+      </div>
+
     {...questionsInfo.map((question, index) => (
           <div key={index}>
             <label htmlFor={index}><h3>{question.Column10}</h3></label>
@@ -129,6 +148,8 @@ useEffect(()=>{
               </div>
               <input className="num-input" type="number" placeholder='type a number' name={index} id={index} onChange={(e)=>{
               
+              handleInputChange(index, e.target.value)
+
               let a = question.PORTFOLIO + " " + e.target.value;
               let update = answersList.findIndex(answer=> answer.split(' ')[0] == question.PORTFOLIO)
               console.log("data: ", data)
@@ -186,9 +207,9 @@ useEffect(()=>{
         ))}
     {submitted && <div>
     <h3>Results:</h3>
-        <p>Result: {((eValue/totalEvalue) * 100).toFixed(1)}% , {totalEvalue} was the Maximum Value possible</p>
+        <p>Result: {((eValue/totalEvalue) * 100).toFixed(1)}% , you scored {eValue}, {totalEvalue} was the Maximum Value possible</p>
     </div>}
-    <button onClick={handleSubmit} className="button-link">Submit</button> <br /><br />
+    <button onClick={handleSubmit} className={disableButton ? "grey": "button-link"} disabled={disableButton} >Submit</button> <br /><br />
     {submitted && <Link to={"/questions"} className="button-link">End Practice Round</Link>}
     </>
   );

@@ -71,7 +71,7 @@ export default function Page6({formData, updateFields, goToNextPage, newPostMuta
             <input type='radio' name='location' id='North Africa or Middle East' value="North Africa or Middle East" onChange={handleLocationChange}/>
             <label for="North Africa or Middle East">North Africa or Middle East</label><br></br>
             <input type='radio' name='location' id='Sub-Saharan Africa' value="Sub-Saharan Africa" onChange={handleLocationChange}/>
-            <label for="Sub-Saharan Africa">Sub-Saharan Africa</label><br></br>
+            <label for="Sub-Saharan Africa">Sub-Saharan Africa(all countries not in north Africa e.g Nigeria, Zimbabwe, South Africa)</label><br></br>
             <input type='radio' name='location' id='North America' value="North America" onChange={handleLocationChange}/>
             <label for="North America">North America</label><br></br>
             <input type='radio' name='location' id='South America' value="South America" onChange={handleLocationChange}/>

@@ -64,37 +64,6 @@ const images = {
   B21, B22, B23, B24, B25
 };
 
-// const imagesB = [
-  
-// ];
-
-// const imagePaths = [
-//   "../../images/QuestionImages/A1.png",
-//   "../../images/QuestionImages/A2.png",
-//   "../../images/QuestionImages/A3.png",
-//   "../../images/QuestionImages/A4.png",
-//   "../../images/QuestionImages/A5.png",
-//   "../../images/QuestionImages/A6.png",
-//   "../../images/QuestionImages/A7.png",
-//   "../../images/QuestionImages/A8.png",
-//   "../../images/QuestionImages/A9.png",
-//   "../../images/QuestionImages/A10.png",
-//   "../../images/QuestionImages/A11.png",
-//   "../../images/QuestionImages/A12.png",
-//   "../../images/QuestionImages/A13.png",
-//   "../../images/QuestionImages/A14.png",
-//   "../../images/QuestionImages/A15.png",
-//   "../../images/QuestionImages/A16.png",
-//   "../../images/QuestionImages/A17.png",
-//   "../../images/QuestionImages/A18.png",
-//   "../../images/QuestionImages/A19.png",
-//   "../../images/QuestionImages/A20.png",
-//   "../../images/QuestionImages/A21.png",
-//   "../../images/QuestionImages/A22.png",
-//   "../../images/QuestionImages/A23.png",
-//   "../../images/QuestionImages/A24.png",
-//   "../../images/QuestionImages/A25.png",
-// ];
 
 const Page1 = ({ sendDataToParent, goToNextPage, seconds, questions, data, currentPage, newPostMutation, handleTimeout }) => {
   // console.log("imagePaths ", imagePaths)
@@ -108,7 +77,7 @@ const Page1 = ({ sendDataToParent, goToNextPage, seconds, questions, data, curre
   let [disableButton, setDisableButton] = useState(true)
   const [inputFieldsFilled, setInputFieldsFilled] = useState([]);
 
-// Initialize inputFieldsFilled with false for each input field
+
 useEffect(() => {
   setInputFieldsFilled(Array.from({ length: questionsDataState.length }, () => false));
 }, [questionsDataState]);
