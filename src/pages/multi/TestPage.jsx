@@ -85,6 +85,22 @@ export default function TestPage() {
   let [disableButton, setDisableButton] = useState(false)
   const [inputFieldsFilled, setInputFieldsFilled] = useState([]);
 
+  const handleWheel = (e) => {
+    if (document.activeElement === e.target) {
+      e.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    const handleDocumentWheel = (e) => handleWheel(e);
+
+    document.addEventListener('wheel', handleDocumentWheel, { passive: false });
+
+    return () => {
+      document.removeEventListener('wheel', handleDocumentWheel);
+    };
+  }, []); 
+
   useEffect(() => {
     setInputFieldsFilled(Array.from({ length: questionsInfo.length }, () => false));
   }, [questionsInfo]);

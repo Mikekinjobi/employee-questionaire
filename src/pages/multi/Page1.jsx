@@ -67,6 +67,7 @@ const images = {
 
 const Page1 = ({ sendDataToParent, goToNextPage, seconds, questions, data, currentPage, newPostMutation, handleTimeout }) => {
   // console.log("imagePaths ", imagePaths)
+  const [value, setValue] = useState("");
   const [countSeconds, setSeconds] = useState(seconds);
   const [questionsDataState, setQuestionsData] = useState([]);
   let [correctAnswers, setCorrectAnswers] = useState(0);
@@ -76,6 +77,22 @@ const Page1 = ({ sendDataToParent, goToNextPage, seconds, questions, data, curre
   let [numberOfAnsweredQuestions, setNumberOfAnsweredQuestions] = useState(0);
   let [disableButton, setDisableButton] = useState(true)
   const [inputFieldsFilled, setInputFieldsFilled] = useState([]);
+
+    const handleWheel = (e) => {
+      if (document.activeElement === e.target) {
+        e.preventDefault();
+      }
+    };
+  
+    useEffect(() => {
+      const handleDocumentWheel = (e) => handleWheel(e);
+  
+      document.addEventListener('wheel', handleDocumentWheel, { passive: false });
+  
+      return () => {
+        document.removeEventListener('wheel', handleDocumentWheel);
+      };
+    }, []); 
 
 
 useEffect(() => {
@@ -175,6 +192,7 @@ useEffect(() => {
                 <img src={images[question.PORTFOLIO]} alt="" />
               </div>
               <input className="num-input" type="number" placeholder='type a number' name={index} id={index} onChange={(e)=>{
+                
                 handleInputChange(index, e.target.value)
                 let a = question.PORTFOLIO + " " + e.target.value;
                 let answersList = data.answers;
