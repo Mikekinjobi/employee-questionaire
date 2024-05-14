@@ -5,65 +5,14 @@ import managers from "../../data/managers.json";
 // import imagePaths from "../../components/importImages";
 
 
-import A1 from '../../images/QuestionImages/A1.png';
-import A2 from '../../images/QuestionImages/A2.png';
-import A3 from '../../images/QuestionImages/A3.png';
-import A4 from '../../images/QuestionImages/A4.png';
-import A5 from '../../images/QuestionImages/A5.png';
-import A6 from '../../images/QuestionImages/A6.png';
-import A7 from '../../images/QuestionImages/A7.png';
-import A8 from '../../images/QuestionImages/A8.png';
-import A9 from '../../images/QuestionImages/A9.png';
-import A10 from '../../images/QuestionImages/A10.png';
-import A11 from '../../images/QuestionImages/A11.png';
-import A12 from '../../images/QuestionImages/A12.png';
-import A13 from '../../images/QuestionImages/A13.png';
-import A14 from '../../images/QuestionImages/A14.png';
-import A15 from '../../images/QuestionImages/A15.png';
-import A16 from '../../images/QuestionImages/A16.png';
-import A17 from '../../images/QuestionImages/A17.png';
-import A18 from '../../images/QuestionImages/A18.png';
-import A19 from '../../images/QuestionImages/A19.png';
-import A20 from '../../images/QuestionImages/A20.png';
-import A21 from '../../images/QuestionImages/A21.png';
-import A22 from '../../images/QuestionImages/A22.png';
-import A23 from '../../images/QuestionImages/A23.png';
-import A24 from '../../images/QuestionImages/A24.png';
-import A25 from '../../images/QuestionImages/A25.png';
+import P1 from '../../images/practiceRound/P1.png';
+import P2 from '../../images/practiceRound/P2.png';
+import P3 from '../../images/practiceRound/P3.png';
 
-import B1 from '../../images/QuestionImages/B1.png';
-import B2 from '../../images/QuestionImages/B2.png';
-import B3 from '../../images/QuestionImages/B3.png';
-import B4 from '../../images/QuestionImages/B4.png';
-import B5 from '../../images/QuestionImages/B5.png';
-import B6 from '../../images/QuestionImages/B6.png';
-import B7 from '../../images/QuestionImages/B7.png';
-import B8 from '../../images/QuestionImages/B8.png';
-import B9 from '../../images/QuestionImages/B9.png';
-import B10 from '../../images/QuestionImages/B10.png';
-import B11 from '../../images/QuestionImages/B11.png';
-import B12 from '../../images/QuestionImages/B12.png';
-import B13 from '../../images/QuestionImages/B13.png';
-import B14 from '../../images/QuestionImages/B14.png';
-import B15 from '../../images/QuestionImages/B15.png';
-import B16 from '../../images/QuestionImages/B16.png';
-import B17 from '../../images/QuestionImages/B17.png';
-import B18 from '../../images/QuestionImages/B18.png';
-import B19 from '../../images/QuestionImages/B19.png';
-import B20 from '../../images/QuestionImages/B20.png';
-import B21 from '../../images/QuestionImages/B21.png';
-import B22 from '../../images/QuestionImages/B22.png';
-import B23 from '../../images/QuestionImages/B23.png';
-import B24 from '../../images/QuestionImages/B24.png';
-import B25 from '../../images/QuestionImages/B25.png';
 
 
 const images = {
-  A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, 
-  A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, 
-  A21, A22, A23, A24, A25, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, 
-  B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, 
-  B21, B22, B23, B24, B25
+  P1, P2, P3
 };
 
 export default function TestPage() {
@@ -127,13 +76,13 @@ export default function TestPage() {
   }
 
   useEffect(()=>{
-    setQuestions(manager.table2Choices.slice(-3))
+    setQuestions(["P1", "P2", "P3"])
   
   }, [manager])
 
   useEffect(()=>{
     console.log(questions)
-    setQuestionsInfo(questionsData.Portfolio2.filter(question=> question.PORTFOLIO == questions[0] || question.PORTFOLIO == questions[1] || question.PORTFOLIO == questions[2]))
+    setQuestionsInfo(questionsData.practise)
   }, [questions])
 
 useEffect(()=> {
