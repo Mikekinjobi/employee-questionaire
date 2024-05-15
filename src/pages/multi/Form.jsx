@@ -98,8 +98,8 @@ console.log(data)
   }, [dataFromPage1])
 
   useEffect(()=>{
-    setSkippedQuestions(data.answers.filter(answer=> answer.split(' ')[1] == 0))
-  },[numberOfSkippedQuestions])
+    setSkippedQuestions(data.answers.map(answer=> { if(answer.split(' ')[1] == 0) return answer.split(' ')[0]}).filter(x => x != null))
+  },[numberOfSkippedQuestions, currentPage])
 
   useEffect(()=> {
     updateFields({totalPossibleEvalue, totalQuestions})
@@ -130,12 +130,12 @@ console.log(data)
     setResult(((eValue/data.totalPossibleEvalue)*100).toFixed(1) + "%")
   
 
-  }, [currentPage, correctAnswers, eValue])
+  }, [currentPage, correctAnswers, eValue, numberOfSkippedQuestions])
 
   useEffect(()=>{
     setPercentageCorrectAnswers(((correctAnswers/data.totalQuestions) * 100).toFixed(1) + "%")
     setPercentageSkippedQuestions(((data.numberOfSkippedQuestions/data.totalQuestions) * 100).toFixed(1) + "%")
-  }, [skippedQuestions])
+  }, [skippedQuestions, correctAnswers, numberOfSkippedQuestions, numberOfAnsweredQuestions])
 
 
   useEffect(()=>{
@@ -146,7 +146,9 @@ console.log(data)
 
   useEffect(()=>{
     setNumberOfSkippedQuestions(data.answers.filter(answer=> answer.split(' ')[1] == 0).length)
-  }, [eValue, result])
+  }, [eValue, result, currentPage])
+
+
   useEffect(() => {
     const qData = questions.map(question => {
       if (question.split('')[0] === 'A') {

@@ -98,7 +98,7 @@ useEffect(()=>{
     <h1>Practice Round</h1>
 
     <div style={{width:"100%"}}className={"timer-instructions-div"}>
-        <p style={{width: "100%"}} className="timer-instructions">The tasks you see are assigned to you by your manager. You can choose to do the task or skip by putting ‘0’ There is no value gained for skipped or wrong answers.</p>
+        <p style={{width: "100%"}} className="timer-instructions"><b>The tasks you see are assigned to you by your manager. You can choose to do the task or skip by putting ‘0’ There is no value gained for skipped or wrong answers.</b></p>
         
       </div>
 

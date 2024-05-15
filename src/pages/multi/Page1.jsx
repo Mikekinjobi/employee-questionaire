@@ -174,7 +174,7 @@ useEffect(() => {
       <div style={{display: "flex", flexDirection:"column", alignItems:"center", border:"",}}>
 
       <div className={"timer-instructions-div"}>
-        <p className="timer-instructions">The tasks you see are assigned to you by your manager. You can choose to do the task or skip by putting ‘0’ <br /> There is no value gained for skipped or wrong answers.</p>
+        <p className="timer-instructions"><b>The tasks you see are assigned to you by your manager. You can choose to do the task or skip by putting ‘0’ <br /> There is no value gained for skipped or wrong answers.</b></p>
         <div className="timer">
           <h3 style={{marginBottom: "0px"}}>Time left: </h3>
           <hr />
