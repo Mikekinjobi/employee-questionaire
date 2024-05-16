@@ -76,7 +76,6 @@ const MultipageComponent = () => {
     setDataFromPage1(prevData => [...prevData, newData]);
   };
   
-console.log(data)
   function updateFields(fields) {
     setData((prev) => {
       return { ...prev, ...fields };
