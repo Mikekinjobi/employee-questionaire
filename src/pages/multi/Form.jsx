@@ -50,14 +50,12 @@ const MultipageComponent = () => {
   }, [managerIndex]);
 
 
-  const manager = managers.allData[managers.allData.findIndex(manager=> manager.answerId == "ccf82c2f-b85a-40f2-8da8-159f5d545384")];
+  const manager = managers.allData[managerIndex];
   const tableUsed = useMemo(() => Math.floor(Math.random() * 2), []);
   const questions = useMemo(
     () => (tableUsed === 0 ? manager.table1Choices : manager.table2Choices),
     [tableUsed, manager]
   );
-
-  console.log("manager!!!!", manager);
   
   const newPostMutation = useMutation({
     mutationFn: () => {

@@ -6,7 +6,7 @@ import Page3 from "./pages/Page3";
 import TestQuestions from "./pages/multi/TestPage";
 import Form from "./pages/multi/Form";
 import DownloadExcelController from "./downloadController/DownloadController";
-import CheckManagers from "./pages/CheckManagers";
+// import CheckManagers from "./pages/CheckManagers";
 
 function App() {
   return (
