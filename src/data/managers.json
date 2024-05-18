@@ -1,42 +1,6 @@
 {
     "allData": [
         {
-            "_id": "663a31d818524eea885af74c",
-            "answerId": "ab2986da-e4c2-4364-8856-95b8cb793fee",
-            "createdAt": "2024-05-07T13:37:39.305Z",
-            "table1Evalue": 3287,
-            "table1Choices": [
-                "A23",
-                "A22",
-                "A19",
-                "A21",
-                "A20",
-                "A24",
-                "A16",
-                "A14",
-                "A25"
-            ],
-            "table2Choices": [
-                "B25",
-                "B23",
-                "B19",
-                "B22",
-                "B20",
-                "B21",
-                "B7"
-            ],
-            "timeSpent": "10 minutes",
-            "__v": 0,
-            "table2Evalue": 2419,
-            "age": "35 - 44",
-            "education": "Associate degree or Bachelor's degree",
-            "employment": "Employed part time (up to 35 hours per week)",
-            "gender": "male",
-            "location": "Sub-Saharan Africa",
-            "table1Result": "92.4%",
-            "table2Result": "91.2%"
-        },
-        {
             "_id": "663a378218524eea885af75b",
             "answerId": "7a0a81a0-ebf6-4d60-94f1-a407faf069ac",
             "createdAt": "2024-05-07T14:01:07.126Z",
