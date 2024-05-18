@@ -32,22 +32,22 @@ const MultipageComponent = () => {
   const [result, setResult] = useState(0);
   let [percentageSkippedQuestions, setPercentageSkippedQuestions] = useState(0);
   let [percentageCorrectAnswers, setPercentageCorrectAnswers] = useState(0);
-  // const [managerIndex] = useState(Math.floor(Math.random() * managers.allData.length));
+  const [managerIndex] = useState(Math.floor(Math.random() * managers.allData.length));
   let [progressBar, setProgressBar] = useState(0)
   let [showProgress, setShowProgress] = useState(true)
 
   const [managerId, setManagerId] = useState('')
 
 
-  const managerIndex = useMemo(() => {
-    const savedIndex = localStorage.getItem('managerIndex');
-    return savedIndex !== null ? parseInt(savedIndex, 10) : 0;
-  }, []);
+  // const managerIndex = useMemo(() => {
+  //   const savedIndex = localStorage.getItem('managerIndex');
+  //   return savedIndex !== null ? parseInt(savedIndex, 10) : 0;
+  // }, []);
 
-  useEffect(() => {
-    const nextIndex = (managerIndex + 1) % managers.allData.length;
-    localStorage.setItem('managerIndex', nextIndex);
-  }, [managerIndex]);
+  // useEffect(() => {
+  //   const nextIndex = (managerIndex + 1) % managers.allData.length;
+  //   localStorage.setItem('managerIndex', nextIndex);
+  // }, [managerIndex]);
 
 
   const manager = managers.allData[managerIndex];
