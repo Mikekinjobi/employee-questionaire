@@ -11,12 +11,16 @@
 //     setUnusedManagers(
 //       managers.filter(
 //         (manager) =>
-//           employees.findIndex(
+//           employees.filter(
 //             (employee) => employee.managerId === manager.answerId
-//           ) === -1
+//           ).length === 1
 //       )
 //     );
 //   }, [managers, employees]);
+
+//   useEffect(()=> {
+//     console.log(unUsedManagers);
+//   }, [unUsedManagers])
 
 //   return (
 //     <div>

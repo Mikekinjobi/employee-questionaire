@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import {useMutation} from "@tanstack/react-query"
+import {useQuery, useMutation} from "@tanstack/react-query"
 import managers from "../../data/managers.json";
 import questionsData from "../../data/questions.json";
 import axios from 'axios'
@@ -16,6 +16,19 @@ const initialState = {
 };
 
 const MultipageComponent = () => {
+
+  // const postsQuery = useQuery({
+  //   queryKey: ["index"],
+  //   queryFn: async() => {
+  //     await axios.get(
+  //       "https://questionaire-backend-01x0.onrender.com/employees/getIndex"
+  //     );
+  //   },
+  // });
+
+  // if(postsQuery.isLoading) return <div>Loading. . . </div>
+  // if(postsQuery.isError) return <div>Error on getting data, please reload the page</div>
+
   const [data, setData] = useState(initialState)
   
   const [currentPage, setCurrentPage] = useState(0); 
