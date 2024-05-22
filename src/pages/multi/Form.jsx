@@ -16,24 +16,10 @@ const initialState = {
 };
 
 const MultipageComponent = () => {
-
-  // const postsQuery = useQuery({
-  //   queryKey: ["index"],
-  //   queryFn: async() => {
-  //     await axios.get(
-  //       "https://questionaire-backend-01x0.onrender.com/employees/getIndex"
-  //     );
-  //   },
-  // });
-
-  // if(postsQuery.isLoading) return <div>Loading. . . </div>
-  // if(postsQuery.isError) return <div>Error on getting data, please reload the page</div>
-
   const [data, setData] = useState(initialState)
   
   const [currentPage, setCurrentPage] = useState(0); 
   const [dataFromPage1, setDataFromPage1] = useState([]);
-  const [dataFromPage2, setDataFromPage2] = useState('');
   const [questionPages, setQuestionPages] = useState([]);
   const [eValue, setEvalue] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0)
@@ -63,7 +49,8 @@ const MultipageComponent = () => {
   // }, [managerIndex]);
 
 
-  const manager = managers.allData[managerIndex];
+  const manager = managers.allData[managers.allData.findIndex(manager=> manager.answerId == "90a1e316-a8d3-4dd7-8052-b4042dcf1bc8")];
+  console.log("manager!!!!!!", manager)
   const tableUsed = useMemo(() => Math.floor(Math.random() * 2), []);
   const questions = useMemo(
     () => (tableUsed === 0 ? manager.table1Choices : manager.table2Choices),
